@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bryan August Teisl - Contact Card</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Smooth fade-in animation for the card */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4 font-sans text-slate-800">
+
+    <!-- Card Container -->
+    <div class="bg-white rounded-3xl shadow-xl w-full max-w-sm overflow-hidden fade-in">
+        
+        <!-- Header / Banner -->
+        <div class="h-32 bg-gradient-to-r from-slate-700 to-slate-900 w-full relative"></div>
+        
+        <!-- Profile Content -->
+        <div class="px-6 pb-8 relative flex flex-col items-center">
+            
+            <!-- Profile Image (Replace src with your actual photo URL) -->
+            <img src="https://ui-avatars.com/api/?name=Bryan+August+Teisl&background=e2e8f0&color=334155&size=128" 
+                 alt="Bryan August Teisl" 
+                 class="w-28 h-28 rounded-full border-4 border-white shadow-lg -mt-14 object-cover bg-white">
+            
+            <!-- Name & Title -->
+            <h1 class="text-2xl font-bold mt-4 text-center">Bryan August Teisl</h1>
+            <p class="text-sm font-semibold text-blue-600 mt-1 text-center">Generation & Transmission Analyst</p>
+            
+            <!-- Location -->
+            <div class="flex items-center text-slate-500 text-sm mt-2">
+                <i class="fa-solid fa-location-dot mr-2"></i>
+                <span>Fort Collins, CO</span>
+            </div>
+
+            <p class="text-center text-sm text-slate-600 mt-4 leading-relaxed">
+                Data Science & Economics <br> MBA Candidate
+            </p>
+
+            <!-- Save Contact Button (Triggers vCard download) -->
+            <button onclick="downloadVCard()" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition duration-200 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-user-plus"></i>
+                Save to Contacts
+            </button>
+
+            <!-- Quick Links -->
+            <div class="flex justify-center gap-4 mt-6 w-full">
+                <!-- Phone -->
+                <a href="tel:+15555555555" class="w-12 h-12 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full transition duration-200">
+                    <i class="fa-solid fa-phone text-lg"></i>
+                </a>
+                <!-- Email -->
+                <a href="mailto:your.email@example.com" class="w-12 h-12 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full transition duration-200">
+                    <i class="fa-solid fa-envelope text-lg"></i>
+                </a>
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/in/YOUR_LINKEDIN_URL" target="_blank" class="w-12 h-12 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full transition duration-200">
+                    <i class="fa-brands fa-linkedin-in text-lg"></i>
+                </a>
+                <!-- GitHub -->
+                <a href="https://github.com/YOUR_GITHUB_URL" target="_blank" class="w-12 h-12 flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-full transition duration-200">
+                    <i class="fa-brands fa-github text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- vCard Generation Script -->
+    <script>
+        function downloadVCard() {
+            // Define your contact details here
+            const vCardData = `BEGIN:VCARD
+VERSION:3.0
+N:Teisl;Bryan;August;;
+FN:Bryan August Teisl
+ORG:Electric Power Utility Cooperative
+TITLE:Generation and Transmission Analyst
+NOTE:Data Science / MBA Candidate
+TEL;TYPE=CELL:+15555555555
+EMAIL;TYPE=WORK:your.email@example.com
+ADR;TYPE=HOME:;;;Fort Collins;CO;;USA
+URL:https://linkedin.com/in/YOUR_LINKEDIN_URL
+END:VCARD`;
+
+            // Create a Blob from the vCard data
+            const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8' });
+            
+            // Create a temporary link element to trigger the download
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Bryan_August_Teisl.vcf');
+            
+            // Append link, click it, and remove it
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Clean up the URL object
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
