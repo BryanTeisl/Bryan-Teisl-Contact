@@ -18,23 +18,44 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Slow Animated Gradient Background */
+        .animated-bg {
+            background: linear-gradient(-45deg, #0f172a, #1e3a8a, #0f172a, #064e3b);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
     </style>
 </head>
-<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4 font-sans text-slate-800">
+
+<!-- Applied the animated background class to the body -->
+<body class="animated-bg flex items-center justify-center min-h-screen p-4 font-sans text-slate-800">
 
     <!-- Card Container -->
     <div class="bg-white rounded-3xl shadow-xl w-full max-w-sm overflow-hidden fade-in">
         
-        <!-- Header / Banner -->
-        <div class="h-32 bg-gradient-to-r from-slate-700 to-slate-900 w-full relative"></div>
+        <!-- Header / Banner with an Unsplash Image -->
+        <!-- The URL pulls a random image based on the keywords 'abstract' and 'architecture' -->
+        <div class="h-32 w-full relative">
+            <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=800&q=80" 
+                 alt="Abstract Banner" 
+                 class="w-full h-full object-cover">
+            <!-- A subtle dark overlay so the image isn't too harsh -->
+            <div class="absolute inset-0 bg-slate-900 opacity-20"></div>
+        </div>
         
         <!-- Profile Content -->
         <div class="px-6 pb-8 relative flex flex-col items-center">
             
-            <!-- Profile Image (Replace src with your actual photo URL) -->
-            <img src="https://ui-avatars.com/api/?name=Bryan+August+Teisl&background=e2e8f0&color=334155&size=128" 
+            <!-- Profile Image (Update 'headshot.jpg' when you upload yours!) -->
+            <img src="headshot.jpg" 
                  alt="Bryan August Teisl" 
-                 class="w-28 h-28 rounded-full border-4 border-white shadow-lg -mt-14 object-cover bg-white">
+                 class="w-28 h-28 rounded-full border-4 border-white shadow-lg -mt-14 object-cover bg-white relative z-10">
             
             <!-- Name & Title -->
             <h1 class="text-2xl font-bold mt-4 text-center">Bryan August Teisl</h1>
@@ -46,11 +67,13 @@
                 <span>Fort Collins, CO</span>
             </div>
 
+            <!-- SEO/Search friendly note block -->
             <p class="text-center text-sm text-slate-600 mt-4 leading-relaxed">
-                Data Science & Economics <br> MBA Candidate
+                MBA Candidate & Utility Analyst <br> 
+                <span class="text-xs text-slate-400 mt-1 block">Data Science • Economics • Python • SQL</span>
             </p>
 
-            <!-- Save Contact Button (Triggers vCard download) -->
+            <!-- Save Contact Button -->
             <button onclick="downloadVCard()" class="mt-6 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition duration-200 flex items-center justify-center gap-2">
                 <i class="fa-solid fa-user-plus"></i>
                 Save to Contacts
@@ -81,7 +104,6 @@
     <!-- vCard Generation Script -->
     <script>
         function downloadVCard() {
-            // Define your contact details here
             const vCardData = `BEGIN:VCARD
 VERSION:3.0
 N:Teisl;Bryan;August;;
@@ -90,27 +112,20 @@ ORG:Tri-State Generation and Transmission Association
 TITLE:Generation and Transmission Analyst
 NOTE:Generation & Transmission Analyst at Tri-State. MBA candidate with a background in data science, economics, and utility analytics (Python, SQL). Based in Fort Collins, CO.
 TEL;TYPE=CELL:+12079499095
-EMAIL;TYPE=WORK:bryan.teisl@tristategt.org
+EMAIL;TYPE=WORK:bryan.teisl@tristate.org
 EMAIL;TYPE=HOME:bryanateisl@gmail.com
 ADR;TYPE=HOME:;;;Fort Collins;CO;;USA
 URL:https://www.linkedin.com/in/bryan-teisl-33095075
 END:VCARD`;
 
-            // Create a Blob from the vCard data
             const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8' });
-            
-            // Create a temporary link element to trigger the download
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
             link.setAttribute('download', 'Bryan_August_Teisl.vcf');
-            
-            // Append link, click it, and remove it
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            
-            // Clean up the URL object
             window.URL.revokeObjectURL(url);
         }
     </script>
